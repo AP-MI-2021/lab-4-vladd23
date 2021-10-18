@@ -51,6 +51,46 @@ def test_medie_mai_mica_decat_n():
     assert medie_mai_mica_decat_n([1,2,3,4,5], 2) == "DA"
     assert medie_mai_mica_decat_n([1,2,3,5,6,7], 92) == "NU"
 
+def nr_diviz_proprii(n):
+    '''
+    Functie care calculeaza numarul de divizorii proprii ai lui n
+    :param n:
+    :return: returneaza variabila contor in care e stocat numarul de divizori proprii ai lui n
+    '''
+
+    cont = 0
+    for d in range(2, n//2 + 1):
+        if n % d == 0:
+            cont +=1
+
+    return cont
+
+def test_nr_diviz_proprii():
+    assert nr_diviz_proprii(6) == 2
+    assert nr_diviz_proprii(10) == 2
+    assert nr_diviz_proprii(12) == 4
+    assert nr_diviz_proprii(19) == 0
+
+def adaugare_nr_diviz_proprii(l):
+    '''
+    Functie care prelucreaza lista data adaugand dupa fiecare element numarul de divizori proprii
+    :param l:
+    :return: Returneaza o lista noua in care se adauga fiecare element din lista veche urmat de numarul prorpiu de divizori al acestuia
+    '''
+
+    lista_noua = []
+    for x in l:
+        lista_noua.append(x)
+        lista_noua.append(nr_diviz_proprii(x))
+
+    return lista_noua
+
+
+def test_adaugare_nr_diviz_proprii():
+    assert adaugare_nr_diviz_proprii([19, 5, 24, 12, 9]) == [19, 0, 5, 0, 24, 6, 12, 4, 9, 1]
+    assert adaugare_nr_diviz_proprii([5,10,6]) == [5, 0, 10, 2, 6, 2]
+    assert adaugare_nr_diviz_proprii([12, 9,9, 14]) == [12, 4, 9 ,1, 9 ,1 ,14, 2]
+
 def print_menu():
     print("1. Citire lista")
     print("2. Afișarea listei după eliminarea numerelor prime din listă")
@@ -73,6 +113,8 @@ def all_test():
     test_is_prime()
     test_remove_prime_from_list()
     test_medie_mai_mica_decat_n()
+    test_nr_diviz_proprii()
+    test_adaugare_nr_diviz_proprii()
 
 def main():
     print_menu()
@@ -89,7 +131,7 @@ def main():
             n = int(input("Alegeti un numar: "))
             print(medie_mai_mica_decat_n(l,n))
         elif optiune == "4":
-            pass
+            print(adaugare_nr_diviz_proprii(l))
         elif optiune == "5":
             pass
         elif optiune == "x":
