@@ -34,6 +34,12 @@ def test_remove_prime_from_list():
     assert remove_prime_from_list([13,17,19]) == []
 
 def medie_mai_mica_decat_n(l, n):
+    '''
+    Functie care compara media aritmetica a elementelor unei liste cu un nr dat n
+    :param l:
+    :param n:
+    :return: mesajul "DA" daca media este mai mare decat n, mesajul "NU" in caz contrar
+    '''
     s = 0
     nr_elem = 0
     for x in l:
@@ -91,6 +97,43 @@ def test_adaugare_nr_diviz_proprii():
     assert adaugare_nr_diviz_proprii([5,10,6]) == [5, 0, 10, 2, 6, 2]
     assert adaugare_nr_diviz_proprii([12, 9,9, 14]) == [12, 4, 9 ,1, 9 ,1 ,14, 2]
 
+def nr_aparitii(l, x):
+    '''
+    Calculeaza numarul de aparitii a lui x in lista l
+    :param l: lista
+    :param x:
+    :return: numarul de aparitii a lui x in l in variabila contor
+    '''
+    contor = 0
+    for i in l:
+        if i == x:
+            contor +=1
+
+    return contor
+
+def test_nr_aparitii():
+    assert nr_aparitii([1,2,3], 2) == 1
+    assert nr_aparitii([1,2,2,3,2,4,2], 2) == 4
+    assert nr_aparitii([1,2,3,4], 5) == 0
+
+def formare_lista_tuplu(l):
+    '''
+    Functie care formeaza o lista al carei elemente un tuplu format din elementele dintr-o lista data l, indexarea lor in lista si numarul de aparitii al elementului in lista data
+    :param l:
+    :return: lista cu elemente tuplu care indeplinesc cerinta data
+    '''
+    lista_noua = []
+    for i in range(len(l)):
+        tuplu = (l[i], i, nr_aparitii(l,l[i]))
+        lista_noua.append(tuplu)
+
+    return lista_noua
+
+def test_formare_lista_tuplu():
+    assert formare_lista_tuplu([25, 13, 26, 13]) == [(25, 0, 1), (13, 1, 2), (26, 2, 1), (13, 3, 2)]
+    assert formare_lista_tuplu([1, 2, 3, 2]) == [(1, 0, 1), (2, 1, 2), (3, 2, 1), (2, 3, 2)]
+    assert formare_lista_tuplu([2, 2, 2]) == [(2, 0, 3), (2, 1, 3), (2, 2, 3)]
+
 def print_menu():
     print("1. Citire lista")
     print("2. Afișarea listei după eliminarea numerelor prime din listă")
@@ -115,9 +158,11 @@ def all_test():
     test_medie_mai_mica_decat_n()
     test_nr_diviz_proprii()
     test_adaugare_nr_diviz_proprii()
+    test_nr_aparitii()
+    test_formare_lista_tuplu()
 
 def main():
-    print_menu()
+
     all_test()
     l = []
     while True:
@@ -133,7 +178,7 @@ def main():
         elif optiune == "4":
             print(adaugare_nr_diviz_proprii(l))
         elif optiune == "5":
-            pass
+            print(formare_lista_tuplu(l))
         elif optiune == "x":
             break
         else:
